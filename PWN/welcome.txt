@@ -1,0 +1,12 @@
+Welcome to BJD4th. p.s.flag在环境变量中
+
+root@ubuntu:~# nc 183.129.189.60 10023
+1. add argv
+2. add envp
+3. execve
+> 1
+argv[2]=1
+> 2
+envp[0]=2
+> 3
+gagaga: 1: 1: not found

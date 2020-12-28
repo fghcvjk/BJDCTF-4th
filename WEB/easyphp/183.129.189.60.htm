@@ -1,0 +1,34 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php
+<br>error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);
+<br></span><span style="color: #0000BB">$sandbox&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'/var/www/html/uploads/'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">md5</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">]);
+<br>if(!</span><span style="color: #0000BB">is_dir</span><span style="color: #007700">(</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">))&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mkdir</span><span style="color: #007700">(</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">);
+<br>}
+<br>
+<br>include_once(</span><span style="color: #DD0000">'template.php'</span><span style="color: #007700">);
+<br>
+<br></span><span style="color: #0000BB">$template&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'tp1'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'tp1.tpl'</span><span style="color: #007700">,</span><span style="color: #DD0000">'tp2'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'tp2.tpl'</span><span style="color: #007700">,</span><span style="color: #DD0000">'tp3'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'tp3.tpl'</span><span style="color: #007700">);
+<br>
+<br>if(isset(</span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'var'</span><span style="color: #007700">])&nbsp;&amp;&amp;&nbsp;</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'var'</span><span style="color: #007700">]))&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">extract</span><span style="color: #007700">(</span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'var'</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">EXTR_OVERWRITE</span><span style="color: #007700">);
+<br>}&nbsp;else&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">highlight_file</span><span style="color: #007700">(</span><span style="color: #0000BB">__file__</span><span style="color: #007700">);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;die();
+<br>}
+<br>
+<br>if(isset(</span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'tp'</span><span style="color: #007700">]))&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$tp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'tp'</span><span style="color: #007700">];
+<br>&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$tp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$template</span><span style="color: #007700">)&nbsp;===&nbsp;</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">)&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"No!&nbsp;You&nbsp;only&nbsp;have&nbsp;3&nbsp;template&nbsp;to&nbsp;reader"</span><span style="color: #007700">;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$content&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$template</span><span style="color: #007700">[</span><span style="color: #0000BB">$tp</span><span style="color: #007700">]);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$temp&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Template</span><span style="color: #007700">(</span><span style="color: #0000BB">$content</span><span style="color: #007700">);
+<br>}&nbsp;else&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Please&nbsp;choice&nbsp;one&nbsp;template&nbsp;to&nbsp;reader"</span><span style="color: #007700">;
+<br>}
+<br></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></body></html>
