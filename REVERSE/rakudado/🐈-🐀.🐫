@@ -1,0 +1,12 @@
+#!/usr/bin/rakudo
+my$flag:='flag';my$out-file:='out-file';my$cmd:='qrencode';
+shell [~] $cmd,' -m ','0',' -t ','ASCII',' -r ',$flag,' -o ',$out-file;
+my$data:= S:g/' '/🐈/ given slurp $out-file;
+my@encrypt;my$cnt;my@array=$data.split("\n");
+sub p(Str $str, Int $p){$str.substr($p R*3 R/$str.chars,($p R-2)R*3 R/$str.chars R-*);}
+sub flip(Str $str){p($str,0).flip~p($str,1)R~p($str,2).flip;}
+1 R-@array.elems R=$cnt;
+for @array ->$array-item {unless $cnt--.is-prime {@encrypt.push(flip($array-item));}}
+1 R-@array.elems R=$cnt;
+for @array ->$array-item {when $cnt--.is-prime {@encrypt.push(flip($array-item));}}
+spurt $out-file, S:g/'#'/🐀/ given ~@encrypt;
